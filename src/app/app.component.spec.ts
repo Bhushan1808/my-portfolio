@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
     declarations: [AppComponent]
   }));
 
