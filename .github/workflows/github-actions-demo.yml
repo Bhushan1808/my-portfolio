@@ -51,3 +51,4 @@ jobs:
           branch: gh-pages
           folder: dist/my-portfolio
           token: ${{ secrets.GITHUB_TOKEN }}
+          clean: true
