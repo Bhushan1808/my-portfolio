@@ -1,0 +1,19 @@
+// shadows.scss
+
+// Neumorphic Shadows
+$shadow-light: inset -1px 1px 3px #ffffff;
+$shadow-dark: -8px 8px 16px #d1d9e6;
+
+// Smaller hover shadows (hover effect)
+$shadow-light-hover: -10px -10px 18px #ffffff;
+$shadow-dark-hover: -10px 10px 18px #d1d9e6;
+
+// Combined shadows for default and hover states
+$box-shadow-default: $shadow-dark, $shadow-light;
+$box-shadow-hover:
+ $shadow-dark-hover,
+ $shadow-light-hover;
+ 
+// Subtle elevation shadow (optional for buttons or non-neumorphic elements)
+$box-shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+$box-shadow-deep: 0 12px 32px rgba(0, 0, 0, 0.12);
