@@ -1,0 +1,8 @@
+@use '../../../assets/styles/spacing';
+@use '../../../assets/styles/colors';
+
+.frame{
+    padding: spacing.$spacing-g;
+    background-color: colors.$background-light-gray;
+    height: 100vh;
+}

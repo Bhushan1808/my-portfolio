@@ -1,0 +1,14 @@
+<div class="top-nav">
+  <h2>MyPortfolio</h2>
+  <div class="top-nav__routes">
+    @for (route of routes; track $index) {
+      <h2
+        class="top-nav__route"
+        [routerLink]="route.path"
+        routerLinkActive="top-nav__route--active"
+      >
+        {{ route.name }}
+      </h2>
+    }
+  </div>
+</div>

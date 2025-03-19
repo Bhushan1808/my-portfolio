@@ -1,0 +1,24 @@
+@use '../../../assets/styles/colors';
+@use '../../../assets/styles/spacing';
+
+
+.top-nav{
+    background: colors.$background-light-gray;
+    display: flex;
+    justify-content: space-between;
+
+    .top-nav__routes{
+        display: flex;
+        justify-content: space-between;
+        gap: calc(spacing.$spacing-g * 2);
+
+        .top-nav__route{
+            padding: 8px;
+            padding-top: 0;
+
+            &.top-nav__route--active{
+                border-bottom: 3px solid black;
+            }
+        }
+    }
+}
