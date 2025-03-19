@@ -1,6 +1,9 @@
 import { ROUTES } from '../core/enums';
+import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { Route } from '@angular/router';
+import { ProjectsComponent } from './projects/projects.component';
+import { ContactComponent } from './contact/contact.component';
 
 export const routes: Route[] = [
   {
@@ -14,14 +17,14 @@ export const routes: Route[] = [
   },
   {
     path: ROUTES.ABOUT,
-    component: HomeComponent,
+    component: AboutComponent,
   },
   {
     path: ROUTES.PROJECTS,
-    component: HomeComponent,
+    component: ProjectsComponent,
   },
   {
     path: ROUTES.CONTACT,
-    component: HomeComponent,
+    component: ContactComponent,
   },
 ];
