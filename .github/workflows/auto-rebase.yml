@@ -1,0 +1,45 @@
+on:
+  push:
+    branches:
+      - '**' # Runs on any branch update
+jobs:
+  rebase-prs-on-target-branch-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install GitHub CLI
+        uses: cli/cli-action@v4
+      - name: Get Target Branch Name
+        id: target_branch
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "Target branch is: $BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+      - name: List Open PRs Targeting Updated Branch
+        id: list_prs
+        run: |
+          TARGET_BRANCH="${{ steps.target_branch.outputs.branch_name }}"
+          echo "Looking for open PRs targeting $TARGET_BRANCH..."
+          gh pr list --state open --base "$TARGET_BRANCH" --json number,headRefName > prs.json
+          cat prs.json
+      - name: Rebase PRs onto Target Branch
+        run: |
+          TARGET_BRANCH="${{ steps.target_branch.outputs.branch_name }}"
+          PRS=$(jq -c '.[]' prs.json)
+          if [ -z "$PRS" ]; then
+            echo "No open PRs targeting $TARGET_BRANCH"
+            exit 0
+          fi
+          for pr in $PRS; do
+            PR_NUMBER=$(echo "$pr" | jq '.number')
+            PR_BRANCH=$(echo "$pr" | jq -r '.headRefName')
+            echo "Rebasing PR #$PR_NUMBER (branch: $PR_BRANCH) onto $TARGET_BRANCH"
+            git fetch origin $PR_BRANCH
+            git checkout $PR_BRANCH
+            git rebase origin/$TARGET_BRANCH
+            git push origin $PR_BRANCH --force-with-lease
+            echo "Successfully rebased PR #$PR_NUMBER onto $TARGET_BRANCH"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
